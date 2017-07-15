@@ -36,10 +36,13 @@ app.get("/api/:x?", function(req, res) {
   	res.json(tables);
   } else if (chosen === "waitlist"){
   	res.json(waitlist);
-  } 
 
-  
-});
+  } else if (chosen === "clear"){
+  	tables = [];
+  	waitlist = [];
+  }
+
+  });
 
 
 app.post("/api/tables", function(req, res) {
