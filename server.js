@@ -15,6 +15,8 @@ app.use(bodyParser.json({
   type: "application/vnd.api+json"
 }));
 
+var tables = [];
+var waitlist = [];
 
 app.get("/", function(req, res) {
   // res.send("Welcome to the Star Wars Page!")
@@ -34,27 +36,33 @@ app.get("/make", function(req, res) {
 app.get("/api/:x?", function(req, res) {
   var chosen = req.params.x;
 
-  if (chosen==="table") {
-  	console.log(req);
+  if (chosen==="tables") {
+  	res.json(tables);
   } else if (chosen === "waitlist"){
-  	console.log(req);
+  	res.json(waitlist);
+  } else if (chose === "clear"){
+  	tables = [];
+  	waitlist = [];
   }
 
   
 });
 
 
-app.post("/api/new", function(req, res) {
+app.post("/api/tables", function(req, res) {
   // req.body hosts is equal to the JSON post sent from the user
-  var newcharacter = req.body;
+  var newReservation = req.body;
 
-  console.log(newcharacter);
+  console.log(newReservation);
 
   // We then add the json the user sent to the character array
-  characters.push(newcharacter);
-
+  if(tables.length < 5 ){
+  	tables.push(newReservation);
+  } else {
+  	waitlist.push(newReservation);
+  }
   // We then display the JSON to the users
-  res.json(newcharacter);
+  res.json(newReservation);
 });
 
 
