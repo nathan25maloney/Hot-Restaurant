@@ -47,15 +47,20 @@ app.get("/api/:x?", function(req, res) {
 
 app.post("/api/tables", function(req, res) {
   var newReservation = req.body;
-
+  
   console.log(newReservation);
 
   if(tables.length < 5 ){
   	newReservation.hasTable = true;
-  	tables.push(newReservation);
+  	if(!check(newReservation,tables)){
+  		tables.push(newReservation);
+  	}
+  	
   } else {
   	newReservation.hasTable = false;
-  	waitlist.push(newReservation);
+  	if(!check(newReservation,waitlist)&&!check(newReservation,tables)){
+  		waitlist.push(newReservation);
+  	}
   }
   res.json(newReservation);
 });
@@ -69,3 +74,31 @@ app.post("/api/clear", function(req, res) {
 app.listen(port, function() {
   console.log("App listening on PORT " + port);
 });
+
+
+function isEquivalent(a, b) {
+    
+    var aProps = Object.getOwnPropertyNames(a);
+    var bProps = Object.getOwnPropertyNames(b);
+
+    if (aProps.length != bProps.length) {
+        return false;
+    }
+
+    for (var i = 0; i < aProps.length; i++) {
+        var propName = aProps[i];
+
+        if (a[propName] !== b[propName]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function check(a,b){
+	for (var i = b.length - 1; i >= 0; i--) {
+		if(isEquivalent(a,b[i])){
+			return true;
+		}
+	}
+}
