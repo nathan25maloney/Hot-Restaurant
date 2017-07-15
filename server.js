@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 var path = require("path");
 var $ = require("jquery");
 
+
 var app = express();
 var port = process.env.PORT || 3000;
 
@@ -14,6 +15,8 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({
   type: "application/vnd.api+json"
 }));
+
+app.use(express.static(path.join(__dirname, 'css')));
 
 var tables = [];
 var waitlist = [];
