@@ -48,8 +48,10 @@ app.post("/api/tables", function(req, res) {
   console.log(newReservation);
 
   if(tables.length < 5 ){
+  	newReservation.hasTable = true;
   	tables.push(newReservation);
   } else {
+  	newReservation.hasTable = false;
   	waitlist.push(newReservation);
   }
   res.json(newReservation);
