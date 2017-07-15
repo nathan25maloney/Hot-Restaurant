@@ -36,10 +36,7 @@ app.get("/api/:x?", function(req, res) {
   	res.json(tables);
   } else if (chosen === "waitlist"){
   	res.json(waitlist);
-  } else if (chose === "clear"){
-  	tables = [];
-  	waitlist = [];
-  }
+  } 
 
   
 });
@@ -56,6 +53,11 @@ app.post("/api/tables", function(req, res) {
   	waitlist.push(newReservation);
   }
   res.json(newReservation);
+});
+
+app.post("/api/clear", function(req, res) {
+  tables= [];
+  waitlist = [];
 });
 
 
