@@ -108,12 +108,12 @@
 	    	console.log(data);
 	    	// If a table is available... tell user they are booked.
 	    	if(data.hasTable == true){
-	    		alert("Yay! You are officially booked!")
+	    		alert("Yay! You are officially booked, " + newReservation.customerName);
 	    	}
 
 	    	// If a table is available... tell user they on the waiting list.
 	    	if(data.hasTable == false){
-	    		alert("Sorry you are on the wait list")
+	    		alert("Sorry, all tables are full. You are on the wait list, " + newReservation.customerName);
 	    	}
 
 	    	// Clear the form when submitting
